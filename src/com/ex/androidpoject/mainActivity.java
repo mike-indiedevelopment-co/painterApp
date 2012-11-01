@@ -61,7 +61,7 @@ public class mainActivity extends Activity implements View.OnClickListener {
         color = (Button) findViewById(R.id.colorsBtn);  // <<< color button
         color.setOnClickListener(this);
         
-        brush = (Button) findViewById(R.id.brushBtn);
+        brush = (Button) findViewById(R.id.brushBtn);	// <<< brush button
         brush.setOnClickListener(this);
         
         menu = (Button) findViewById(R.id.menuBtn); 	// <<< menu button
@@ -75,10 +75,12 @@ public class mainActivity extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.colorsBtn:																	// <<<< COLOR
-			startActivityForResult(new Intent(mainActivity.this, ColorActivity.class), 9);
+			startActivityForResult(new Intent
+					(mainActivity.this, ColorActivity.class), 9);
 			break;
 		case R.id.brushBtn:																		// <<<< BRUSH
-			startActivityForResult(new Intent(mainActivity.this, BrushActivity.class), 8);
+			startActivityForResult(new Intent
+					(mainActivity.this, BrushActivity.class), 8);
 			break;
 		case R.id.eraseBtn:																		// <<<< ERASE						
 			drawView = (DrawingView)findViewById(R.id.tableDraw);								// <<<<< implement DrawingView paint to tableDraw	
@@ -286,7 +288,8 @@ public class mainActivity extends Activity implements View.OnClickListener {
     	}else if (item.getItemId() == R.id.itemUpload){											// <<<< UPLOAD
     		Log.d("Upload", "was clicked");
     	}else if (item.getItemId() == R.id.itemPreferences){									// <<<< PREFERENCES
-    		startActivityForResult(new Intent(mainActivity.this, Settings.class), 7);
+    		startActivityForResult(new Intent
+    				(mainActivity.this, Settings.class), 7);
   
     	}else if (item.getItemId() == R.id.itemShowGallery){									// <<<< SHOW GALLERY								
     		Log.d("Gallery", "was clicked");
@@ -325,7 +328,7 @@ public class mainActivity extends Activity implements View.OnClickListener {
 			AlertDialog ask = new AlertDialog.Builder(this).create();
     		ask.setTitle("Exit");
     		ask.setIcon(R.drawable.exit);
-    		ask.setMessage("Really!?");
+    		ask.setMessage("Really?!");
     		ask.setButton(DialogInterface.BUTTON_NEGATIVE, "No",
     				new DialogInterface.OnClickListener() {
 						
