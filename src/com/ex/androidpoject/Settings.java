@@ -127,7 +127,7 @@ public class Settings extends Activity {
 	
 	private OnCheckedChangeListener checkedChangedListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(RadioGroup rg, int selectedColorId) {
-			//colorChoice = ((RadioButton) rg_colorChoice.findViewById(prefs.getInt("selectedColor", -1)));
+			colorChoice = ((RadioButton) rg_colorChoice.findViewById(prefs.getInt("selectedColor", -1)));
 			// Log.d("Selected Color Id Changed To:",String.valueOf(prefs.getInt("selectedColor", -1)));
 			prefsEd.putInt("selectedColor", selectedColorId);
 			prefsEd.commit();
