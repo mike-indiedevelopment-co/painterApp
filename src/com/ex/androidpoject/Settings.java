@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Settings extends Activity {
-
+	
 	SharedPreferences prefs;
 	SharedPreferences.Editor prefsEd;
 	SeekBar seekBarBrush, seekBarErase;
@@ -31,7 +31,6 @@ public class Settings extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preferences_layout);
-		
 		cancel = (Button) findViewById(R.id.CANCELbtn);
 		cancel.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -40,22 +39,33 @@ public class Settings extends Activity {
 				finish();
 			}
 		});
-		
 		ok = (Button) findViewById(R.id.OKbtn);
 		ok.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = getIntent();
-				/** update this to use the value stored in shared prefs
-				 * to return the size stored there or a default of 10 if no
-				 * value is stored currently */
-				intent.putExtra("BrushSize", prefs.getInt("brushSize", 10));
-				/** update this to use the value stored in shared prefs
-				 * to return the size stored there or a default of 40 if no
-				 * value is stored currently */
-				intent.putExtra("EraserSize", prefs.getInt("eraserSize", 40));
-				/** update this to use the value stored in shared prefs
-				 * to return the color int stored there or a default Color.Red */
-				intent.putExtra("DefaultColor", prefs.getInt("defaultColor", Color.RED));
+				/**
+				 * update this to use the value stored in shared prefs to return
+				 * the size stored there or a default of 10 if no value is
+				 * stored currently
+				 */
+				// intent.putExtra("BrushSize", prefs.getInt("brushSize", 10));
+				// we do not need to pass this to the activity, we can just use
+				// the shared prefs
+				/**
+				 * update this to use the value stored in shared prefs to return
+				 * the size stored there or a default of 40 if no value is
+				 * stored currently
+				 */
+				// intent.putExtra("EraserSize", prefs.getInt("eraserSize",
+				// 40)); we do not need to pass this to the activity, we can
+				// just use the shared prefs
+				/**
+				 * update this to use the value stored in shared prefs to return
+				 * the color int stored there or a default Color.Red
+				 */
+				// intent.putExtra("DefaultColor", prefs.getInt("defaultColor",
+				// Color.RED)); we do not need to pass this to the activity, we
+				// can just use the shared prefs
 				setResult(RESULT_OK, intent);
 				finish();
 			}
@@ -69,7 +79,7 @@ public class Settings extends Activity {
 		
 		seekBarBrush = (SeekBar) findViewById(R.id.seek_brushSize);
 		int brushSize = prefs.getInt("brushSize", 10);
-			Log.d("Prefs Brush Size:", String.valueOf(brushSize));
+		Log.d("Prefs Brush Size:", String.valueOf(brushSize));
 		seekBarBrush.setMax(60);
 		seekBarBrush.setProgress(brushSize);
 		seekBarBrush.setOnSeekBarChangeListener(seekBarChangeListenerBrush);
@@ -77,15 +87,16 @@ public class Settings extends Activity {
 		
 		seekBarErase = (SeekBar) findViewById(R.id.seek_eraserSize);
 		int eraserSize = prefs.getInt("eraserSize", 40);
-			Log.d("Prefs Eraser Size:", String.valueOf(eraserSize));
+		Log.d("Prefs Eraser Size:", String.valueOf(eraserSize));
 		seekBarErase.setMax(60);
 		seekBarErase.setProgress(eraserSize);
 		seekBarErase.setOnSeekBarChangeListener(seekBarChangeListenerErase);
 		curEraserSize.setText(String.valueOf(seekBarErase.getProgress()));
-
+		
 		rg_colorChoice = (RadioGroup) findViewById(R.id.rg_colorChoice);
 		rg_colorChoice.setOnCheckedChangeListener(checkedChangedListener);
-		colorChoice = ((RadioButton) rg_colorChoice.findViewById(prefs.getInt("selectedColor", -1)));
+		colorChoice = ((RadioButton) rg_colorChoice.findViewById(prefs.getInt(
+				"selectedColor", -1)));
 		if (colorChoice != null) {
 			colorChoice.setChecked(true);
 		}
@@ -101,10 +112,11 @@ public class Settings extends Activity {
 		}
 
 		public void onStopTrackingTouch(SeekBar arg0) {
-			Log.d("Returned Eraser Progress:", String.valueOf(seekBarBrush.getProgress()));
+			Log.d("Returned Eraser Progress:",
+					String.valueOf(seekBarBrush.getProgress()));
 			prefsEd.putInt("brushSize", seekBarBrush.getProgress());
 			prefsEd.commit();
-			Log.d("Prefs Brush Size:", String.valueOf(prefs.getInt("brushSize", 101)));
+			Log.d("Prefs Brush Size:", String.valueOf(prefs.getInt("brushSize", 61)));
 		}
 	};
 	
@@ -118,17 +130,18 @@ public class Settings extends Activity {
 		}
 
 		public void onStopTrackingTouch(SeekBar arg0) {
-			Log.d("Returned Eraser Progress:", String.valueOf(seekBarErase.getProgress()));
+			Log.d("Returned Eraser Progress:",
+					String.valueOf(seekBarErase.getProgress()));
 			prefsEd.putInt("eraserSize", seekBarErase.getProgress());
 			prefsEd.commit();
-			Log.d("Prefs Eraser Size:", String.valueOf(prefs.getInt("eraserSize", 101)));
+			Log.d("Prefs Eraser Size:", String.valueOf(prefs.getInt("eraserSize", 61)));
 		}
 	};
 	
 	private OnCheckedChangeListener checkedChangedListener = new OnCheckedChangeListener() {
 		public void onCheckedChanged(RadioGroup rg, int selectedColorId) {
 			colorChoice = ((RadioButton) rg_colorChoice.findViewById(prefs.getInt("selectedColor", -1)));
-			// Log.d("Selected Color Id Changed To:",String.valueOf(prefs.getInt("selectedColor", -1)));
+			// Log.d("Selected Color Id Changed To:",String.valueOf(prefs.getInt("selectedColor",-1)));
 			prefsEd.putInt("selectedColor", selectedColorId);
 			prefsEd.commit();
 			ShowColor();
@@ -137,7 +150,6 @@ public class Settings extends Activity {
 
 	// Create a toast to show the color selected and that the selection choice has been updated
 	private void ShowColor() {
-
 		switch (prefs.getInt("selectedColor", -1)) {
 		case R.id.r_red:
 			// shared prefs to hold our color info
